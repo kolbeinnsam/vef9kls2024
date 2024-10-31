@@ -68,13 +68,17 @@ export async function weatherSearch(lat, lng) {
   });
   url.search = querystring.toString();
 
-  const response = await fetch(url.href);
+  try {
+    const response = await fetch(url.href);
 
-  if (response.ok) {
+    if (!response.ok) {
+      throw new Error('Ekki tókst að sækja veðurupplýsingar');
+    }
+
     const data = await response.json();
-
     return parseResponse(data);
+  } catch (error) {
+    console.error('Villa við að sækja veðurupplýsingar:', error); //console stuffið
+    throw error;
   }
-
-  return [];
 }
