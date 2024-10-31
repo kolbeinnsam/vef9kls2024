@@ -6,7 +6,8 @@
     "copy:html": "cpy ./*.html ./build/",
     "copy:css": "cpy ./*.css ./build/",
     "copy:js": "cpy ./src ./build/src",
-    "build": "concurrently npm:copy:*",
+    "build": "mkdir -p ./build && concurrently npm:copy:*",
+    "postbuild": "echo 'Build complete'",
     "lint": "eslint ./src",
     "prettier": "prettier --write ."
   },
